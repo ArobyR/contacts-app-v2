@@ -1,0 +1,13 @@
+{
+    "name": "Contacts app back-end",
+    "configDB": {
+        "HOST": "mongodb://localhost:27017/contactAppDB"
+    },
+    "configServer": {
+        "PORT": 3000
+    },
+    "configToken": {
+        "SEED": "secret",
+        "expiration": "3h"
+    }
+}
