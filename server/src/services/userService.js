@@ -1,22 +1,28 @@
 import User from "../models/user_model.js";
-import bcrypt from "bcrypt"
+import bcrypt from "bcrypt";
+
+const getUser = async (email) => {
+  const user = await User.findOne({ email: email, user_state: true }).select({
+    username: 1,
+    email: 1,
+    contacts: 1,
+  });
+  return user;
+};
 
 const createUser = async (body) => {
+  const user = await getUser(body.email);
+
+  if (user.email) {
+    return { error: "User or email incorrect" };
+  }
+
   const userRecord = await new User({
     username: body.username,
     email: body.email,
     password: bcrypt.hashSync(body.password, 10),
   });
   return userRecord.save();
-};
-
-const getUser = async (email) => {
-  const user = await User.findOne({ email: email, user_state: true }).select({
-    username: 1,
-    email: 1,
-    contacts: 1
-  });
-  return user;
 };
 
 const updateUser = async (body) => {
@@ -44,9 +50,4 @@ async function deactivateUser(email) {
   return result;
 }
 
-export {
-  createUser,
-  getUser,
-  updateUser,
-  deactivateUser
-};
+export { createUser, getUser, updateUser, deactivateUser };
