@@ -1,16 +1,16 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const config = require("config");
-const userRoute = require("./routes/users");
-const contactRoute = require("./routes/contacts")
-const app = express();
+import express from "express"
+import mongoose from "mongoose"
+import config from "config"
+import userRoute from "./routes/users.js"
+import contactRoute from "./routes/contacts.js"
 
+const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api/users", userRoute);
 app.use("/api/contacts", contactRoute)
 
-// connection
+
 mongoose
   .connect(config.get("configDB.HOST"), {
     useNewUrlParser: true,

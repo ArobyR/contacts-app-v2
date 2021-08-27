@@ -1,7 +1,7 @@
-const User = require("../models/user_model");
-const bcrypt = require("bcrypt");
+import User from "../models/user_model.js";
+import bcrypt from "bcrypt"
 
-const creteUser = async (body) => {
+const createUser = async (body) => {
   const userRecord = await new User({
     username: body.username,
     email: body.email,
@@ -44,8 +44,8 @@ async function deactivateUser(email) {
   return result;
 }
 
-module.exports = {
-  creteUser,
+export {
+  createUser,
   getUser,
   updateUser,
   deactivateUser

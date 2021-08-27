@@ -1,5 +1,5 @@
-const Contact = require("../models/contact_model");
-const User = require("../models/user_model");
+import Contact from "../models/contact_model.js";
+import User from "../models/user_model.js";
 
 const createContact = async (body, id) => {
   const contactRecord = await new Contact({
@@ -31,12 +31,8 @@ const updateContact = async (id, body) => {
         phone: body.phone,
       },
     }
-  )
+  );
   return contactUpdated;
 };
 
-module.exports = {
-  createContact,
-  getContactsByUser,
-  updateContact
-};
+export { createContact, getContactsByUser, updateContact };
