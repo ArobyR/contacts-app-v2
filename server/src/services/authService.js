@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 
 const authUser = async (body) => {
   const user = await User.findOne({ email: body.email });
-  if (user.email && bcrypt.compareSync(body.password, user.password)) {
+  if (user && bcrypt.compareSync(body.password, user.password)) {
     const jwtoken = jwt.sign(
       {
         user: {
