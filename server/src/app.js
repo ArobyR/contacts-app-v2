@@ -4,6 +4,7 @@ import config from "config"
 import cors from "cors"
 import userRoute from "./routes/users.js"
 import contactRoute from "./routes/contacts.js"
+import authRoute from "./routes/auth.js"
 
 const app = express();
 app.use(express.json());
@@ -11,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors())
 app.use("/api/users", userRoute);
 app.use("/api/contacts", contactRoute)
-
+app.use("/auth", authRoute)
 
 mongoose
   .connect(config.get("configDB.HOST"), {
