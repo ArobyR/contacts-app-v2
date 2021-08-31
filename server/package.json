@@ -5,7 +5,8 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "start": "cd src/ && node app.js"
+    "start": "cd src/ && node app.js",
+    "dev": "cd src/ && npx nodemon app.js"
   },
   "keywords": [],
   "author": "",
@@ -15,7 +16,11 @@
     "config": "^3.3.6",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "http-errors": "^1.8.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
   }
 }
