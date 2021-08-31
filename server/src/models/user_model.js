@@ -4,15 +4,18 @@ const Schema = mongoose.Schema;
 const UserSchema = mongoose.Schema({
   username: {
     type: String,
-    required: true,
+    required: [true, "Invalid value"]
   },
   email: {
     type: String,
-    required: true,
+    required: [true, "Invalid value"],    
     unique: true,
     dropDups: true
   },
-  password: String,
+  password: {
+    type: String,
+    required: [true, "Invalid value"]
+  },
   user_state: {
     type: Boolean,
     default: true,
