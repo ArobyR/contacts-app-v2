@@ -1,31 +1,51 @@
 import User from "../models/user_model.js";
 import bcrypt from "bcrypt";
+import validateUser from "../helpers/validateUser.js";
 
-const getUser = async (email) => {
+const getUser = async (req, res) => {
+  const email = req.body.email;
   const user = await User.findOne({ email: email, user_state: true }).select({
     username: 1,
     email: 1,
     contacts: 1,
   });
-  return user;
+  res.json(user);
 };
 
-const createUser = async (body) => {
-  const user = await getUser(body.email);
+const createUser = async (req, res) => {
+  const { username, email, password } = req.body;
 
-  if (user.email) {
-    return { error: "User or email incorrect" };
+  const { error } = validateUser(username, email, password);
+  if (error) {
+    return res.status(400).json(error);
+  }
+
+  const user = await User.findOne({ email: email });
+  if (user) {
+    return res
+      .status(400)
+      .json({ error: "ok", message: "User or email incorrect" });
   }
 
   const userRecord = await new User({
-    username: body.username,
-    email: body.email,
-    password: bcrypt.hashSync(body.password, 10),
+    username: username,
+    email: email,
+    password: bcrypt.hashSync(password, 10),
   });
-  return userRecord.save();
+  userRecord.save();
+  res
+    .json({
+      message: "User was created!",
+    });
 };
 
-const updateUser = async (body) => {
+const updateUser = async (req, res, next) => {
+  const {username, email, password} = req.body
+  const { error } = validateUser(username, email, password);
+  if (error) {
+    return res.status(400).json(error);
+  }
+
   const result = await User.updateOne(
     { email: body.email },
     {
@@ -35,7 +55,7 @@ const updateUser = async (body) => {
       },
     }
   );
-  return result;
+  res.json(result);
 };
 
 async function deactivateUser(email) {
