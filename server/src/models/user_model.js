@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const UserSchema = mongoose.Schema({
   username: {
     type: String,
-    required: [true, "Invalid value"]
+    required: [true, "Invalid value"],
+    min: 2
   },
   email: {
     type: String,
@@ -14,7 +15,8 @@ const UserSchema = mongoose.Schema({
   },
   password: {
     type: String,
-    required: [true, "Invalid value"]
+    required: [true, "Invalid value"],
+    min: 6
   },
   user_state: {
     type: Boolean,
