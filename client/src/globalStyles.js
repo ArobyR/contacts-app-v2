@@ -18,4 +18,7 @@ export const useStyles = makeStyles((theme) => ({
   h2: {
     padding: theme.spacing(2),
   },
+  fields: {
+    padding: theme.spacing(1),
+  },
 }));
