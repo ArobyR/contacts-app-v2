@@ -15,10 +15,10 @@ const createContact = async (body, id) => {
 };
 
 const getContactsByUser = async (id) => {
-  const contacts = await Contact.find({
-    contact_state: true,
-    user: id,
-  }).populate("user", "name_contact phone contact_state");
+  const contacts = await Contact.find({ user: id }).populate(
+    "user",
+    "name_contact phone"
+  );
   return contacts;
 };
 
@@ -35,4 +35,13 @@ const updateContact = async (id, body) => {
   return contactUpdated;
 };
 
-export { createContact, getContactsByUser, updateContact };
+const deactivateContact = async (id) => {
+  const result = await Contact.deleteOne({ _id: id });
+  const user = await User.updateOne(
+    { contacts: id },
+    { $pull: { contacts: [id] } }
+  );
+  return user;
+};
+
+export { createContact, getContactsByUser, updateContact, deactivateContact };
