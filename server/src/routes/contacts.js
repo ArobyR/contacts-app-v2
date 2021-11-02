@@ -1,5 +1,5 @@
 import express from "express";
-import tokenValidation from "../middlewares/auth.js"
+import tokenValidation from "../middlewares/auth.js";
 import {
   createContact,
   deactivateContact,
@@ -15,18 +15,18 @@ route.get("/:id", tokenValidation, async (req, res) => {
 });
 
 route.post("/:id", tokenValidation, async (req, res) => {
-  const result = await createContact(req.body, req.params.id);
-  res.json(result);
+  const contact = await createContact(req.body, req.params.id);
+  res.json(contact);
 });
 
 route.put("/phone/:id", tokenValidation, async (req, res) => {
-  const result = await updateContact(req.params.id, req.body);
-  res.json(result);
+  const contactUpdated = await updateContact(req.params.id, req.body);
+  res.json(contactUpdated);
 });
 
 route.delete("/:id", tokenValidation, async (req, res) => {
-  const result = await deactivateContact(req.params.id)
-  res.json(result)
-})
+  const result = await deactivateContact(req.params.id);
+  res.json(result);
+});
 
 export default route;
