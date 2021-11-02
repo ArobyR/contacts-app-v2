@@ -14,7 +14,7 @@ app.use(cors());
 app.use("/api/users", userRoute);
 app.use("/api/contacts", contactRoute);
 app.use("/auth", authRoute);
-app.use(error404)
+app.use(error404);
 app.use(errorHandler);
 
 mongoose
