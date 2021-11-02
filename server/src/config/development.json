@@ -4,7 +4,7 @@
         "HOST": "mongodb://localhost:27017/contactAppDB"
     },
     "configServer": {
-        "PORT": 3000
+        "PORT": 3001
     },
     "configToken": {
         "SEED": "secret",
